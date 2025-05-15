@@ -11,13 +11,6 @@ export function MediaLogos() {
             className="opacity-80"
           />
           <Image
-            src="/logos/techcrunch.svg"
-            alt="TechCrunch logo"
-            width={40}
-            height={30}
-            className="opacity-80"
-          />
-          <Image
             src="/logos/new-york-times.svg"
             alt="New York Times logo"
             width={180}
@@ -27,20 +20,6 @@ export function MediaLogos() {
           <Image
             src="/logos/bbc.svg"
             alt="BBC logo"
-            width={60}
-            height={30}
-            className="opacity-80"
-          />
-          <Image
-            src="/logos/washington-post.svg"
-            alt="Washington Post logo"
-            width={180}
-            height={30}
-            className="opacity-80"
-          />
-          <Image
-            src="/logos/wsj.svg"
-            alt="WSJ logo"
             width={60}
             height={30}
             className="opacity-80"
