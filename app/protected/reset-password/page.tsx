@@ -1,8 +1,13 @@
 import { resetPasswordAction } from "@/app/actions";
-import { FormMessage, Message } from "@/components/form-message";
-import { SubmitButton } from "@/components/submit-button";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+
+// Define a simple Message type here if not already globally available
+interface Message {
+  type?: 'error' | 'success';
+  content?: string;
+}
 
 export default async function ResetPassword(props: {
   searchParams: Promise<Message>;
@@ -28,10 +33,14 @@ export default async function ResetPassword(props: {
         placeholder="Confirm password"
         required
       />
-      <SubmitButton formAction={resetPasswordAction}>
+      <Button type="submit" formAction={resetPasswordAction}>
         Reset password
-      </SubmitButton>
-      <FormMessage message={searchParams} />
+      </Button>
+      {searchParams?.content && (
+        <p className={`text-sm ${searchParams.type === 'error' ? 'text-red-500' : 'text-green-500'}`}>
+          {searchParams.content}
+        </p>
+      )}
     </form>
   );
 }

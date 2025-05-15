@@ -1,19 +1,28 @@
 import { signUpAction } from "@/app/actions";
-import { FormMessage, Message } from "@/components/form-message";
-import { SubmitButton } from "@/components/submit-button";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { SmtpMessage } from "../smtp-message";
 
+// Define a simple Message type here if not already globally available
+interface Message {
+  type?: 'error' | 'success';
+  content?: string;
+  message?: string; // Added based on usage in this file
+}
+
 export default async function Signup(props: {
   searchParams: Promise<Message>;
 }) {
   const searchParams = await props.searchParams;
-  if ("message" in searchParams) {
+  if ("message" in searchParams && searchParams.message) { // Updated condition
     return (
       <div className="w-full flex-1 flex items-center h-screen sm:max-w-md justify-center gap-2 p-4">
-        <FormMessage message={searchParams} />
+        {/* Replaced FormMessage */}
+        <p className={`text-sm ${searchParams.type === 'error' ? 'text-red-500' : 'text-green-500'}`}>
+          {searchParams.message}
+        </p>
       </div>
     );
   }
@@ -39,10 +48,16 @@ export default async function Signup(props: {
             minLength={6}
             required
           />
-          <SubmitButton formAction={signUpAction} pendingText="Signing up...">
+          {/* Replaced SubmitButton */}
+          <Button type="submit" formAction={signUpAction}>
             Sign up
-          </SubmitButton>
-          <FormMessage message={searchParams} />
+          </Button>
+          {/* Replaced FormMessage - ensure searchParams.content or similar is used */}
+          {searchParams?.content && (
+            <p className={`text-sm ${searchParams.type === 'error' ? 'text-red-500' : 'text-green-500'}`}>
+              {searchParams.content}
+            </p>
+          )}
         </div>
       </form>
       <SmtpMessage />
