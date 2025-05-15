@@ -1,6 +1,7 @@
 import { CheckIcon, CloudLightningIcon as LightningBoltIcon, UploadIcon, ArrowRightIcon } from "lucide-react"
 import { Nav } from "@/components/Nav"
 import { MediaLogos } from "@/components/MediaLogos"
+import { ContentDetectorForm } from '@/components/content-detector-form'
 
 export default function Home() {
   return (
@@ -63,26 +64,7 @@ export default function Home() {
           </div>
 
           {/* Right Column - AI Detector Card */}
-          <div className="flex items-center justify-center">
-            <div className="w-full max-w-md p-8 bg-white rounded-xl shadow-lg">
-              <h2 className="text-2xl font-semibold text-gray-800">Was this text written by AI or a Human?</h2>
-
-              <div className="mt-8">
-                <textarea
-                  className="w-full h-48 p-4 border rounded-md focus:outline-none focus:ring-1 focus:ring-green-500"
-                  placeholder="Paste your text"
-                ></textarea>
-                <div className="mt-3 text-sm text-gray-500">0/5,000 characters</div>
-              </div>
-
-              <div className="flex items-center justify-between mt-6">
-                <button className="flex items-center justify-center w-full gap-2 px-6 py-3 text-base text-white bg-green-600 rounded-md hover:bg-green-800">
-                  Check text
-                  <ArrowRightIcon className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-          </div>
+          <ContentDetectorForm />
         </div>
         {/* Media Logos */}
         <MediaLogos />
