@@ -10,10 +10,10 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="container px-4 py-12 mx-auto md:py-16">
-        <div className="grid gap-12 md:grid-cols-2">
-          {/* Left Column - Hero Content */}
-          <div className="flex flex-col justify-center">
-            <div className="max-w-xl">
+        <div className="flex flex-col gap-12">
+          {/* Hero Content */}
+          <div className="flex flex-col items-center text-center">
+            <div className="max-w-2xl">
               <h1 className="text-4xl font-bold text-gray-700 md:text-5xl">
                 Navigate AI use
                 <div className="mt-2">
@@ -21,7 +21,7 @@ export default function Home() {
                 </div>
               </h1>
               <p className="mt-6 text-lg text-gray-600">
-              A clear score shows how much of your work appears to be written with AI so you can submit it with peace of mind.
+                A clear score shows how much of your work appears to be written with AI so you can submit it with peace of mind.
               </p>
 
               {/* Stats */}
@@ -40,22 +40,21 @@ export default function Home() {
                 </div>
               </div>
 
-
               {/* Feature List */}
               <div className="mt-10 space-y-3">
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-2 justify-center">
                   <CheckIcon className="w-5 h-5 mt-0.5 text-green-600" />
                   <span className="text-gray-700">The world&apos;s most accurate AI checker</span>
                 </div>
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-2 justify-center">
                   <CheckIcon className="w-5 h-5 mt-0.5 text-green-600" />
                   <span className="text-gray-700">Smart bibliography and source check</span>
                 </div>
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-2 justify-center">
                   <CheckIcon className="w-5 h-5 mt-0.5 text-green-600" />
                   <span className="text-gray-700">Replay writing in Google Docs</span>
                 </div>
-                <div className="flex items-start gap-2">
+                <div className="flex items-start gap-2 justify-center">
                   <CheckIcon className="w-5 h-5 mt-0.5 text-green-600" />
                   <span className="text-gray-700">Customize an educator-in-the-loop AI grader</span>
                 </div>
@@ -63,7 +62,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Column - AI Detector Card */}
+          {/* AI Detector Card */}
           <ContentDetectorForm />
         </div>
         {/* Media Logos */}

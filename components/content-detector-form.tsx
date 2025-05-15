@@ -105,7 +105,7 @@ export function ContentDetectorForm() {
             className="resize-y"
             disabled={isLoading}
           />
-          <Button type="submit" className="w-full" disabled={isLoading || !text.trim()}>
+          <Button type="submit" className="w-full bg-green-600" disabled={isLoading || !text.trim()}>
             {isLoading ? (
               <><Loader2 className="w-5 h-5 mr-2 animate-spin" /> Checking...</>
             ) : (
