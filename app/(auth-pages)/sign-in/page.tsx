@@ -1,9 +1,14 @@
 import { signInAction } from "@/app/actions";
-import { FormMessage, Message } from "@/components/form-message";
-import { SubmitButton } from "@/components/submit-button";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+
+// Define a simple Message type here if not already globally available
+interface Message {
+  type?: 'error' | 'success';
+  content?: string;
+}
 
 export default async function Login(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
@@ -34,10 +39,14 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
           placeholder="Your password"
           required
         />
-        <SubmitButton pendingText="Signing In..." formAction={signInAction}>
+        <Button type="submit" formAction={signInAction}>
           Sign in
-        </SubmitButton>
-        <FormMessage message={searchParams} />
+        </Button>
+        {searchParams?.content && (
+          <p className={`text-sm ${searchParams.type === 'error' ? 'text-red-500' : 'text-green-500'}`}>
+            {searchParams.content}
+          </p>
+        )}
       </div>
     </form>
   );

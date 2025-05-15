@@ -1,10 +1,15 @@
 import { forgotPasswordAction } from "@/app/actions";
-import { FormMessage, Message } from "@/components/form-message";
-import { SubmitButton } from "@/components/submit-button";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { SmtpMessage } from "../smtp-message";
+
+// Define a simple Message type here if not already globally available
+interface Message {
+  type?: 'error' | 'success';
+  content?: string;
+}
 
 export default async function ForgotPassword(props: {
   searchParams: Promise<Message>;
@@ -25,10 +30,14 @@ export default async function ForgotPassword(props: {
         <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
           <Label htmlFor="email">Email</Label>
           <Input name="email" placeholder="you@example.com" required />
-          <SubmitButton formAction={forgotPasswordAction}>
+          <Button type="submit" formAction={forgotPasswordAction}>
             Reset Password
-          </SubmitButton>
-          <FormMessage message={searchParams} />
+          </Button>
+          {searchParams?.content && (
+            <p className={`text-sm ${searchParams.type === 'error' ? 'text-red-500' : 'text-green-500'}`}>
+              {searchParams.content}
+            </p>
+          )}
         </div>
       </form>
       <SmtpMessage />
