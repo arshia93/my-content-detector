@@ -30,6 +30,8 @@ const LOADING_MESSAGES = [
   "Finalizing results..."
 ];
 
+const SAMPLE_AI_PARAGRAPH = "The advent of sophisticated neural networks has ushered in a new era of content generation. These models, trained on vast datasets of text and code, can produce remarkably human-like prose, compose poetry, and even generate functional software. While the potential applications are immense, ranging from automated journalism to creative writing assistance, concerns about authenticity and misuse persist. The challenge lies in harnessing this powerful technology responsibly, ensuring it augments human creativity rather than replacing it, and developing robust methods to distinguish between human-authored and machine-generated content.";
+
 export function ContentDetectorForm() {
   const [text, setText] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -128,13 +130,24 @@ export function ContentDetectorForm() {
             className="resize-y"
             disabled={isLoading}
           />
-          <Button type="submit" className="w-full bg-green-600 hover:bg-green-700" disabled={isLoading || !text.trim()}>
-            {isLoading ? (
-              <><Loader2 className="w-5 h-5 mr-2 animate-spin" /> {LOADING_MESSAGES[loadingMessageIndex]}</>
-            ) : (
-              <><ArrowRightIcon className="w-5 h-5 mr-2" /> Check text</>
-            )}
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <Button 
+              type="button" 
+              variant="outline" 
+              onClick={() => setText(SAMPLE_AI_PARAGRAPH)} 
+              className="w-full sm:w-auto"
+              disabled={isLoading}
+            >
+              Load Sample ChatGPT Text
+            </Button>
+            <Button type="submit" className="w-full bg-green-600 hover:bg-green-700" disabled={isLoading || !text.trim()}>
+              {isLoading ? (
+                <><Loader2 className="w-5 h-5 mr-2 animate-spin" /> {LOADING_MESSAGES[loadingMessageIndex]}</>
+              ) : (
+                <><ArrowRightIcon className="w-5 h-5 mr-2" /> Check text</>
+              )}
+            </Button>
+          </div>
         </form>
       </CardContent>
 
