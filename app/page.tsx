@@ -26,7 +26,7 @@ export default function Home() {
                   <div className="text-sm text-gray-600">Accuracy</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-gray-700">3,000,000+</div>
+                  <div className="text-3xl font-bold text-gray-700">3M</div>
                   <div className="text-sm text-gray-600">Users</div>
                 </div>
                 <div>
