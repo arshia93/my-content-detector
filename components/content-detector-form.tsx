@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, FormEvent, ChangeEvent } from 'react';
+import { useState, FormEvent, ChangeEvent, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -24,11 +24,31 @@ interface SaplingError {
 
 const CHARACTER_LIMIT = 5000; // Match the limit set in your API route
 
+const LOADING_MESSAGES = [
+  "Analyzing text...",
+  "Checking for patterns...",
+  "Finalizing results..."
+];
+
 export function ContentDetectorForm() {
   const [text, setText] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [result, setResult] = useState<SaplingDetectionResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loadingMessageIndex, setLoadingMessageIndex] = useState<number>(0);
+
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+    if (isLoading) {
+      setLoadingMessageIndex(0);
+      intervalId = setInterval(() => {
+        setLoadingMessageIndex((prevIndex) => (prevIndex + 1) % LOADING_MESSAGES.length);
+      }, 2333);
+    }
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [isLoading]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -48,18 +68,21 @@ export function ContentDetectorForm() {
       return;
     }
 
+    const timerPromise = new Promise(resolve => setTimeout(resolve, 7000));
+    const apiCallPromise = fetch('/api/detect-content', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ text }),
+    });
+
     try {
-      const response = await fetch('/api/detect-content', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ text }),
-      });
+      const [apiResponse] = await Promise.all([apiCallPromise, timerPromise]);
+      // Now process the apiResponse as before
+      const data = await (apiResponse as Response).json();
 
-      const data = await response.json();
-
-      if (!response.ok) {
+      if (!(apiResponse as Response).ok) {
         const errorData = data as SaplingError;
         throw new Error(errorData.error || 'Failed to fetch detection results');
       }
@@ -105,9 +128,9 @@ export function ContentDetectorForm() {
             className="resize-y"
             disabled={isLoading}
           />
-          <Button type="submit" className="w-full bg-green-600" disabled={isLoading || !text.trim()}>
+          <Button type="submit" className="w-full bg-green-600 hover:bg-green-700" disabled={isLoading || !text.trim()}>
             {isLoading ? (
-              <><Loader2 className="w-5 h-5 mr-2 animate-spin" /> Checking...</>
+              <><Loader2 className="w-5 h-5 mr-2 animate-spin" /> {LOADING_MESSAGES[loadingMessageIndex]}</>
             ) : (
               <><ArrowRightIcon className="w-5 h-5 mr-2" /> Check text</>
             )}
