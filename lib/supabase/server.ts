@@ -8,14 +8,17 @@ export function createSupabaseServerClient() {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value;
+        async get(name: string) {
+          const cookie = await cookieStore;
+          return cookie.get(name)?.value;
         },
-        set(name: string, value: string, options: CookieOptions) {
-          cookieStore.set({ name, value, ...options });
+        async set(name: string, value: string, options: CookieOptions) {
+          const cookie = await cookieStore;
+          cookie.set({ name, value, ...options });
         },
-        remove(name: string, options: CookieOptions) {
-          cookieStore.delete({ name, ...options });
+        async remove(name: string, options: CookieOptions) {
+          const cookie = await cookieStore;
+          cookie.delete({ name, ...options });
         },
       },
     }
@@ -32,4 +35,4 @@ export async function getSupabaseServerClientWithUser() {
   const supabase = createSupabaseServerClient();
   const { data: { user } } = await supabase.auth.getUser();
   return { supabase, user };
-} 
+}

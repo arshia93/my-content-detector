@@ -2,7 +2,10 @@ import { signInAction } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
+import { getSupabaseServerClientWithSession } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
 
 // Define a simple Message type here if not already globally available
 interface Message {
@@ -10,44 +13,59 @@ interface Message {
   content?: string;
 }
 
-export default async function Login(props: { searchParams: Promise<Message> }) {
+export default async function LoginPage(props: { searchParams: Promise<Message> }) {
+  const { session } = await getSupabaseServerClientWithSession();
+
+  if (session) {
+    redirect('/');
+  }
+
   const searchParams = await props.searchParams;
+
   return (
-    <form className="flex-1 flex flex-col min-w-64">
-      <h1 className="text-2xl font-medium">Sign in</h1>
-      <p className="text-sm text-foreground">
-        Don't have an account?{" "}
-        <Link className="text-foreground font-medium underline" href="/sign-up">
-          Sign up
-        </Link>
-      </p>
-      <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
-        <Label htmlFor="email">Email</Label>
-        <Input name="email" placeholder="you@example.com" required />
-        <div className="flex justify-between items-center">
-          <Label htmlFor="password">Password</Label>
-          <Link
-            className="text-xs text-foreground underline"
-            href="/forgot-password"
-          >
-            Forgot Password?
+    <Card className="w-full max-w-sm">
+      <CardHeader className="text-center">
+        <CardTitle className="text-2xl">Sign In</CardTitle>
+        <CardDescription>
+          Welcome back! Please enter your credentials.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input id="email" name="email" type="email" placeholder="you@example.com" required />
+          </div>
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="password">Password</Label>
+              <Link
+                href="/forgot-password"
+                className="text-sm font-medium text-primary hover:underline"
+              >
+                Forgot Password?
+              </Link>
+            </div>
+            <Input id="password" name="password" type="password" placeholder="Your password" required />
+          </div>
+          {searchParams?.content && (
+            <p className={`text-sm ${searchParams.type === 'error' ? 'text-destructive' : 'text-emerald-600'}`}>
+              {searchParams.content}
+            </p>
+          )}
+          <Button type="submit" formAction={signInAction} className="w-full">
+            Sign In
+          </Button>
+        </form>
+      </CardContent>
+      <CardFooter className="text-center text-sm">
+        <p className="text-muted-foreground">
+          Don't have an account?{" "}
+          <Link href="/sign-up" className="font-medium text-primary hover:underline">
+            Sign Up
           </Link>
-        </div>
-        <Input
-          type="password"
-          name="password"
-          placeholder="Your password"
-          required
-        />
-        <Button type="submit" formAction={signInAction}>
-          Sign in
-        </Button>
-        {searchParams?.content && (
-          <p className={`text-sm ${searchParams.type === 'error' ? 'text-red-500' : 'text-green-500'}`}>
-            {searchParams.content}
-          </p>
-        )}
-      </div>
-    </form>
+        </p>
+      </CardFooter>
+    </Card>
   );
 }

@@ -1,9 +1,16 @@
-export default async function Layout({
+import { Nav } from "@/components/Nav";
+
+export default async function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <div className="max-w-7xl flex flex-col gap-12 items-start">{children}</div>
+    <div className="flex flex-col min-h-screen">
+      <Nav />
+      <main className="flex-grow flex flex-col items-center justify-start pt-20 bg-muted/50 p-4">
+        {children}
+      </main>
+    </div>
   );
 }
