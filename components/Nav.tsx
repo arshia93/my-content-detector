@@ -14,7 +14,7 @@ export function Nav() {
         </div>
         <div className="flex items-center gap-4">
           <Link
-            href="/signup"
+            href="/sign-up"
             className="hidden px-4 py-2 text-green-700 border border-green-700 rounded-full hover:bg-green-50 md:block"
           >
             Sign up for unlimited access
