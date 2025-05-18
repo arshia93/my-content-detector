@@ -2,6 +2,7 @@ import { CheckIcon, CloudLightningIcon as LightningBoltIcon, UploadIcon, ArrowRi
 import { Nav } from "@/components/Nav"
 import { MediaLogos } from "@/components/MediaLogos"
 import { ContentDetectorForm } from '@/components/content-detector-form'
+import { ArticlesAndBlogSection } from '@/app/(main)/(routes)/home/_components/articles-and-blog/articles-and-blog-section'
 
 export default function Home() {
   return (
@@ -35,35 +36,34 @@ export default function Home() {
                 </div>
               </div>
 
-
-              
-
-          {/* Right Column - AI Detector Card */}
-          <ContentDetectorForm />
-        </div>
-        {/* Media Logos */}
-        <MediaLogos />
-        {/* Feature List */}
-        <div className="mt-10 grid grid-cols-2 gap-4">
-                <div className="flex items-start gap-2">
-                  <CheckIcon className="w-5 h-5 mt-0.5 text-green-600" />
-                  <span className="text-gray-700">The world&apos;s most accurate AI checker</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <CheckIcon className="w-5 h-5 mt-0.5 text-green-600" />
-                  <span className="text-gray-700">Smart bibliography and source check</span>
-                </div>
-                {/* <div className="flex items-start gap-2">
-                  <CheckIcon className="w-5 h-5 mt-0.5 text-green-600" />
-                  <span className="text-gray-700">Replay writing in Google Docs</span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <CheckIcon className="w-5 h-5 mt-0.5 text-green-600" />
-                  <span className="text-gray-700">Customize an educator-in-the-loop AI grader</span>
-                </div> */}
+              <ContentDetectorForm />
+            </div>
+            {/* Media Logos */}
+            <MediaLogos />
+            {/* Feature List */}
+            <div className="mt-10 grid grid-cols-2 gap-4">
+              <div className="flex items-start gap-2">
+                <CheckIcon className="w-5 h-5 mt-0.5 text-green-600" />
+                <span className="text-gray-700">The world&apos;s most accurate AI checker</span>
               </div>
+              <div className="flex items-start gap-2">
+                <CheckIcon className="w-5 h-5 mt-0.5 text-green-600" />
+                <span className="text-gray-700">Smart bibliography and source check</span>
+              </div>
+              {/* <div className="flex items-start gap-2">
+                <CheckIcon className="w-5 h-5 mt-0.5 text-green-600" />
+                <span className="text-gray-700">Replay writing in Google Docs</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <CheckIcon className="w-5 h-5 mt-0.5 text-green-600" />
+                <span className="text-gray-700">Customize an educator-in-the-loop AI grader</span>
+              </div> */}
             </div>
           </div>
+          {/* Articles and Blog Section - Added Here */}
+          <ArticlesAndBlogSection />
+
+        </div>
       </main>
     </div>
   )
