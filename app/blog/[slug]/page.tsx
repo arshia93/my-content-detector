@@ -30,18 +30,25 @@ export async function generateStaticParams() {
   return slugs;
 }
 
-interface ArticlePageProps {
-  params: {
-    slug: string;
-  };
+// Define types for params
+type ResolvedPageParams = {
+  slug: string;
+};
+type PromisedPageParams = Promise<ResolvedPageParams>;
+
+// This interface might need adjustment or can be replaced by inline types in function signatures
+// For now, we'll keep it but primarily focus on the function signatures.
+interface BlogArticlePageProps {
+  params: PromisedPageParams; // Updated to reflect promise
   searchParams?: { [key: string]: string | string[] | undefined };
 }
 
 export async function generateMetadata(
-  { params }: ArticlePageProps,
+  { params: paramsPromise }: { params: PromisedPageParams }, // Use the new PromisedPageParams type
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const article = await getArticleData(params.slug);
+  const { slug } = await paramsPromise; // Await the params
+  const article = await getArticleData(slug);
 
   if (!article) {
     return {
@@ -80,8 +87,9 @@ export async function generateMetadata(
   };
 }
 
-export default async function ArticlePage({ params }: ArticlePageProps) {
-  const article = await getArticleData(params.slug);
+export default async function ArticlePage({ params: paramsPromise }: { params: PromisedPageParams }) { // Use the new PromisedPageParams type
+  const { slug } = await paramsPromise; // Await the params
+  const article = await getArticleData(slug);
 
   if (!article) {
     notFound();
