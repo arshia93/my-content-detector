@@ -174,7 +174,7 @@ export function ContentDetectorForm() {
               <Button 
                 type="submit" 
                 className="w-full bg-green-600 hover:bg-green-700"
-                disabled={isLoading || !text.trim() || (!session?.user && isLimitReached)}
+                disabled={isLoading || !text.trim()}
               >
                 {isLoading ? (
                   <><Loader2 className="w-5 h-5 mr-2 animate-spin" /> {LOADING_MESSAGES[loadingMessageIndex]}</>
