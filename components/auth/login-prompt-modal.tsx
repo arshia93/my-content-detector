@@ -33,7 +33,7 @@ export function LoginPromptModal({ isOpen, onOpenChange }: LoginPromptModalProps
   function handleSignUpClick() {
     // You might want to close the modal first if it obstructs the signup page
     onOpenChange(false);
-    router.push("/signup"); // Or your actual signup page route
+    router.push("/sign-up"); // Or your actual signup page route
   }
 
   return (
@@ -46,24 +46,13 @@ export function LoginPromptModal({ isOpen, onOpenChange }: LoginPromptModalProps
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <Button onClick={() => handleLogin("google")} variant="outline">
-            {/* Replace with actual Google icon if available */}
-            <span className="mr-2">G</span> Login with Google
+          <Button 
+            onClick={handleSignUpClick} 
+            className="w-full bg-green-600 hover:bg-green-700 text-white"
+          >
+            Sign up to get unlimited access
           </Button>
-          <Button onClick={() => handleLogin("github")} variant="outline">
-            {/* Replace with actual GitHub icon if available */}
-            <span className="mr-2">GH</span> Login with GitHub
-          </Button>
-          {/* Add more login options if needed, e.g., email/password */}
         </div>
-        <DialogFooter className="sm:justify-center">
-          <p className="text-sm text-muted-foreground">
-            Don't have an account?
-            <Button variant="link" className="px-1" onClick={handleSignUpClick}>
-              Sign up for unlimited access
-            </Button>
-          </p>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
