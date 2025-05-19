@@ -67,7 +67,11 @@ export default async function SignUpPage(props: { searchParams: Promise<Message>
                 {searchParams.content}
               </p>
             )}
-            <Button type="submit" formAction={signUpAction} className="w-full">
+            <Button 
+              type="submit" 
+              formAction={signUpAction} 
+              className="w-full bg-green-600 hover:bg-green-700 text-white"
+            >
               Sign Up
             </Button>
           </form>

@@ -53,7 +53,11 @@ export default async function LoginPage(props: { searchParams: Promise<Message> 
               {searchParams.content}
             </p>
           )}
-          <Button type="submit" formAction={signInAction} className="w-full">
+          <Button 
+            type="submit" 
+            formAction={signInAction} 
+            className="w-full bg-green-600 hover:bg-green-700 text-white"
+          >
             Sign In
           </Button>
         </form>
